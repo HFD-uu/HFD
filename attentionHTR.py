@@ -1,7 +1,4 @@
 import os
-import sys
-
-sys.path.append(os.path.join(os.path.dirname(__file__), ".."))  # lägger till src/
 
 import numpy as np
 import torch
@@ -9,8 +6,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from PIL import Image
 from torchvision.transforms import Compose, Grayscale, Normalize, Resize, ToTensor
-
-from tools.pairing import ImagePair
 
 # Ladda ned från: https://drive.google.com/drive/folders/1h6edewgRUTJPzI81Mn0eSsqItnk9RMeO
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "model-weights")
@@ -357,12 +352,6 @@ def pool_features(features):
     """
     return features.mean(dim=1)
 
-def _resolve_device(device: str) -> str:
-    if device == "auto":
-        return "cuda" if torch.cuda.is_available() else "cpu"
-    return device
-
-
 def _extract_from_paths(
     paths: list[str],
     model: AttentionHTR,
@@ -378,20 +367,3 @@ def _extract_from_paths(
     return np.concatenate(all_features, axis=0)
 
 
-def extract_attentionhtr_features(
-    pairs: list[ImagePair],
-    device: str = "auto",
-    batch_size: int = 16,
-    model_path: str | None = None,
-) -> tuple[np.ndarray, np.ndarray]:
-    runtime_device = _resolve_device(device)
-    model = load_model(model_path=model_path, device=runtime_device)
-    model.eval()
-
-    pred_paths   = [p.pred_path   for p in pairs]
-    target_paths = [p.target_path for p in pairs]
-
-    pred_features   = _extract_from_paths(pred_paths,   model, runtime_device, batch_size)
-    target_features = _extract_from_paths(target_paths, model, runtime_device, batch_size)
-
-    return pred_features, target_features

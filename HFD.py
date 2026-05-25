@@ -1,14 +1,21 @@
 import os
-import sys
-
-# attentionHTR.py imports tools.pairing from the mFID research repo
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mFID", "src"))
 
 import numpy as np
 import torch
 from attentionHTR import _extract_from_paths, load_model
 
 DEFAULT_MODEL_PATH = os.path.join(os.path.dirname(__file__), "AttentionHTR-Imgur5K.pth")
+
+WEIGHTS_URL = "https://drive.google.com/drive/folders/1h6edewgRUTJPzI81Mn0eSsqItnk9RMeO"
+
+
+def _check_model_path(model_path: str) -> None:
+    if not os.path.isfile(model_path):
+        raise FileNotFoundError(
+            f"Model weights not found: {model_path}\n"
+            f"Download the weights from Google Drive and place them in the same directory as HFD.py:\n"
+            f"  {WEIGHTS_URL}"
+        )
 
 
 def calculate(
@@ -35,6 +42,8 @@ def calculate(
         from HFD import calculate
         score = calculate(generated_paths, reference_paths)
     """
+    _check_model_path(model_path)
+
     if device == "auto":
         device = "cuda" if torch.cuda.is_available() else "cpu"
 
