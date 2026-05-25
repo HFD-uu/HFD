@@ -14,12 +14,8 @@ If the weights file is missing, `calculate()` will raise a `FileNotFoundError` w
 
 ### 2. Install dependencies
 
-This project also depends on `tools.pairing` from the [mFID](https://github.com/isacpersson/mFID) research repo. Clone it as a sibling directory:
-
-```
-parent/
-├── HFD-implementation/
-└── mFID/
+```bash
+pip install torch torchvision pillow numpy
 ```
 
 ## Usage
