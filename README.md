@@ -10,7 +10,7 @@ The weights file (`AttentionHTR-Imgur5K.pth`) is not included in this repository
 
 **[Download weights from Google Drive](https://drive.google.com/drive/folders/1h6edewgRUTJPzI81Mn0eSsqItnk9RMeO)**
 
-If the weights file is missing, `calculate()` will raise a `FileNotFoundError` with the download link.
+If the weights file is missing, `calculate()` will raise a `FileNotFoundError`.
 
 ### 2. Install dependencies
 
