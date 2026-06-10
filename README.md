@@ -1,4 +1,4 @@
-# HFD — Handwriting Fréchet Distance
+# HFD - Handwriting Fréchet Distance
 
 Measures similarity between two sets of handwriting images using features from [AttentionHTR](https://github.com/dmitrijsk/AttentionHTR) and the Fréchet distance.
 
@@ -27,10 +27,10 @@ score = calculate(generated_image_paths, reference_image_paths)
 print(f"HFD: {score:.4f}")  # lower = more similar
 ```
 
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `image_paths_1` | — | Paths to generated images |
-| `image_paths_2` | — | Paths to reference images |
-| `model_path` | `AttentionHTR-Imgur5K.pth` | Path to model weights |
-| `device` | `"auto"` | `"auto"`, `"cuda"`, or `"cpu"` |
-| `batch_size` | `16` | Batch size for feature extraction |
+| Parameter       | Default                    | Description                       |
+| --------------- | -------------------------- | --------------------------------- |
+| `image_paths_1` | —                          | Paths to generated images         |
+| `image_paths_2` | —                          | Paths to reference images         |
+| `model_path`    | `AttentionHTR-Imgur5K.pth` | Path to model weights             |
+| `device`        | `"auto"`                   | `"auto"`, `"cuda"`, or `"cpu"`    |
+| `batch_size`    | `16`                       | Batch size for feature extraction |

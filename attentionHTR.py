@@ -7,22 +7,6 @@ import torch.nn.functional as F
 from PIL import Image
 from torchvision.transforms import Compose, Grayscale, Normalize, Resize, ToTensor
 
-# Ladda ned från: https://drive.google.com/drive/folders/1h6edewgRUTJPzI81Mn0eSsqItnk9RMeO
-MODEL_DIR = os.path.join(os.path.dirname(__file__), "model-weights")
-ATTENTIONHTR_MODEL_PATHS = {
-    "attnHTR-general": os.path.join(MODEL_DIR, "AttentionHTR-General.pth"),
-    "attnHTR-general-sensitive": os.path.join(
-        MODEL_DIR, "AttentionHTR-General-sensitive.pth"
-    ),
-    "attnHTR-iam": os.path.join(MODEL_DIR, "AttentionHTR-IAM.pth"),
-    "attnHTR-iam-sensitive": os.path.join(MODEL_DIR, "AttentionHTR-IAM-sensitive.pth"),
-    "attnHTR-imgur5k": os.path.join(MODEL_DIR, "AttentionHTR-Imgur5K.pth"),
-    "attnHTR-imgur5k-sensitive": os.path.join(
-        MODEL_DIR, "AttentionHTR-Imgur5K-sensitive.pth"
-    ),
-}
-MAX_IMAGES = 10
-
 IMG_H = 32
 IMG_W = 100
 INPUT_CHANNEL = 1
@@ -339,18 +323,6 @@ def get_features(images, model, device="cpu"):
         return model(batch)  # (B, T, D)
         
 
-
-def pool_features(features):
-    """
-    Mean-pool sequential features over time positions.
-
-    Args:
-        features: Tensor of shape (B, T, D).
-
-    Returns:
-        Tensor of shape (B, D).
-    """
-    return features.mean(dim=1)
 
 def _extract_from_paths(
     paths: list[str],
